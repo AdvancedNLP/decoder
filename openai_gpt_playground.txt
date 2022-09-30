@@ -1,0 +1,42 @@
+Explain this code:
+
+import re
+
+TOKEN_RX = r"""(?xm)
+    (?P<string> ".*?"|'.*?'             )|
+    (?P<float>  \d*(\d\.|\.\d)\d*       )|
+    (?P<int>    \d+                     )|
+    (?P<id>     [_a-zA-Z][_a-zA-Z0-9]*  )|
+    (?P<punct>  [(){}:\[\]=.,+*/-]      )|
+    (           \#.*$                   )|
+    (           \s+                     )
+    """
+
+def tokens(text):
+    for match in re.finditer(TOKEN_RX, text):
+        if match.lastgroup:
+            yield (match.lastgroup, match[0])
+
+TEXT = """
+    x = 123 + "hello #99"  # ignore me!
+    print(hello.bye[0] + 3.14, 'single')
+    """
+
+for kind, text in tokens(TEXT):
+    print(f"{kind:7}: {text=}")
+
+The code is importing the re module, which is the module for regular expressions in Python. It is then creating a regular expression, which looks for different types of tokens in a string of text. These include strings, floats, integers, identifiers, punctuation, and comments. The code then defines a function, tokens, which takes in a string of text as a parameter. The function uses the regular expression to find all of the tokens in the text. It then loops through all of the matches it finds and yields the last group and the match. The code then defines a string of text to use as an example. The code then loops through all of the tokens it finds in the text and prints them out.
+
+Explain this regular expression
+
+r"""(?xm)
+    (?P<string> ".*?"|'.*?'             )|
+    (?P<float>  \d*(\d\.|\.\d)\d*       )|
+    (?P<int>    \d+                     )|
+    (?P<id>     [_a-zA-Z][_a-zA-Z0-9]*  )|
+    (?P<punct>  [(){}:\[\]=.,+*/-]      )|
+    (           \#.*$                   )|
+    (           \s+                     )
+    """
+
+This regular expression is looking for different types of tokens in a string of text. These include strings, floats, integers, identifiers, punctuation, and comments. The regular expression uses several different capturing groups to find these different types of tokens. The first capturing group, (?P<string>, is looking for strings. The second capturing group, (?P<float>, is looking for floats. The third capturing group, (?P<int>, is looking for integers. The fourth capturing group, (?P<id
